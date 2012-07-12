@@ -26,15 +26,36 @@ BUILD_NETD := false
 
 TARGET_BOARD_PLATFORM := omap3
 TARGET_CPU_ABI := armeabi-v7a
+ARCH_ARM_HAVE_ARMV7A := true
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp 
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp 
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+# -fmodulo-sched -fmodulo-sched-allow-regmoves
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+# -fmodulo-sched -fmodulo-sched-allow-regmoves
+TARGET_arm_CFLAGS := -O3 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops \
+                       -fmodulo-sched -fmodulo-sched-allow-regmoves
+TARGET_thumb_CFLAGS := -mthumb \
+                        -Os \
+                        -fomit-frame-pointer \
+                        -fstrict-aliasing
 TARGET_BOOTLOADER_BOARD_NAME := encore
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USERIMAGES_USE_EXT4 := true
 OMAP_ENHANCEMENT := true
+
+
+# Makefile variables and C/C++ macros to recognise current pastry
+ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 16 || echo 1),)
+    ANDROID_API_JB_OR_LATER := true
+    COMMON_GLOBAL_CFLAGS += -DANDROID_API_JB_OR_LATER
+endif
+ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 14 || echo 1),)
+    ANDROID_API_ICS_OR_LATER := true
+    COMMON_GLOBAL_CFLAGS += -DANDROID_API_ICS_OR_LATER
+endif
+
 
 BOARD_CUSTOM_BOOTIMG_MK := device/bn/encore/uboot-bootimg.mk
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_img_from_target_files
@@ -52,11 +73,12 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Inline kernel building config
+TARGET_KERNEL_SOURCE := kernel/bn/encore
 TARGET_KERNEL_CONFIG := omap3621_fattire-ics_defconfig
 BOARD_USES_UBOOT := true
 
 # Fallback prebuilt kernel
-TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
+#TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
@@ -66,7 +88,7 @@ TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev
 # audio stuff
 BOARD_USES_AUDIO_LEGACY := true
 
-#HARDWARE_OMX := true
+HARDWARE_OMX := true
 
 # Modem
 TARGET_NO_RADIOIMAGE := true
@@ -79,7 +101,7 @@ BOARD_EGL_CFG := device/bn/encore/egl.cfg
 #			-DMISSING_GRALLOC_BUFFERS
 
 # Workaround for eglconfig error
-BOARD_NO_RGBX_8888 := true
+#BOARD_NO_RGBX_8888 := true
 
 # Storage
 BOARD_HAS_SDCARD_INTERNAL := true
