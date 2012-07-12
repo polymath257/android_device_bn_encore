@@ -73,6 +73,13 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Inline kernel building config
+# This BoardConfig uses the On-The_Fly Kernel building. You will also need to grab keyodi's kernel source from:
+# https://github.com/keyodi/nook_kernel.git
+# branch ics-kernel
+#
+# You can just use 
+# git clone https://github.com/keyodi/nook_kernel.git -b ics-kernel
+# and copy the contents into kernel/bn/encore (these will need to be created in your android source dir)
 TARGET_KERNEL_SOURCE := kernel/bn/encore
 TARGET_KERNEL_CONFIG := omap3621_fattire-ics_defconfig
 BOARD_USES_UBOOT := true
