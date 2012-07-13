@@ -85,7 +85,7 @@ TARGET_KERNEL_CONFIG := omap3621_fattire-ics_defconfig
 BOARD_USES_UBOOT := true
 
 # Fallback prebuilt kernel
-#TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
+TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
