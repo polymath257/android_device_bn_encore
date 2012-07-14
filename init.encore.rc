@@ -23,7 +23,6 @@ on init
     export DEFAULT_BASEIMAGE /system/lib/dsp/baseimage.dof
 
     # create mountpoints
-    mkdir /mnt/usbdisk 0000 system system
     mkdir /mnt/emmc 0000 system system
     mkdir /mnt/usbdisk 0000 system system
     symlink /mnt/emmc /emmc
