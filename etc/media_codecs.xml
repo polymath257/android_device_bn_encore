@@ -77,7 +77,7 @@ Only the three quirks included above are recognized at this point:
 
 <MediaCodecs>
     <Decoders>
-        <MediaCodec name="OMX.TI.VIDEO.DECODER" >
+        <MediaCodec name="OMX.TI.Video.Decoder" >
             <Type name="video/mp4v-es" />
             <Type name="video/3gpp" />
             <Type name="video/avc" />
@@ -101,7 +101,7 @@ Only the three quirks included above are recognized at this point:
 
 
     <Encoders>
-        <MediaCodec name="OMX.TI.VIDEO.encoder" >
+        <MediaCodec name="OMX.TI.Video.encoder" >
             <Type name="video/mp4v-es" />
             <Type name="video/3gpp" />
             <Quirk name="requires-allocate-on-input-ports" />
@@ -118,5 +118,4 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.google.flac.encoder" type="audio/flac" />
     </Encoders>
--->
 </MediaCodecs>
