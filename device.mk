@@ -34,29 +34,9 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/ft5x06-i2c.idc:/system/usr/idc/ft5x06-i2c.idc \
     device/bn/encore/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
-# Wifi - we're building ourselves
-# PRODUCT_COPY_FILES += \
-#    device/bn/encore/prebuilt/wifi/cfg80211.ko:/system/lib/modules/cfg80211.ko \
-#    device/bn/encore/prebuilt/wifi/compat.ko:/system/lib/modules/compat.ko \
-#    device/bn/encore/prebuilt/wifi/crc7.ko:/system/lib/modules/crc7.ko \
-#    device/bn/encore/prebuilt/wifi/mac80211.ko:/system/lib/modules/mac80211.ko \
-#    device/bn/encore/prebuilt/wifi/mmc_test.ko:/system/lib/modules/mmc_test.ko \
-#    device/bn/encore/prebuilt/wifi/pcbc.ko:/system/lib/modules/pcbc.ko \
-#    device/bn/encore/prebuilt/wifi/scsi_wait_scan.ko:/system/lib/modules/scsi_wait_scan.ko \
-#    device/bn/encore/prebuilt/wifi/wl12xx.ko:/system/lib/modules/wl12xx.ko \
-#    device/bn/encore/prebuilt/wifi/wl12xx_sdio.ko:/system/lib/modules/wl12xx_sdio.ko \
-#    device/bn/encore/prebuilt/wifi/wl12xx_sdio_test.ko:/system/lib/modules/wl12xx_sdio_test.ko \
-#    device/bn/encore/prebuilt/wifi/wl12xx_spi.ko:/system/lib/modules/wl12xx_spi.ko
-
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl128x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl128x-fw-4-mr.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl128x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl128x-fw-4-plt.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl128x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl128x-fw-4-sr.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin
+     device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
+     device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin
 
 # Bluetooth
 PRODUCT_COPY_FILES += \
@@ -137,7 +117,6 @@ PRODUCT_COPY_FILES += \
 # Product specfic packages
 PRODUCT_PACKAGES += \
     hwprops \
-    overlay.omap3 \
     lights.encore \
     sensors.encore \
     uim-sysfs \
@@ -156,7 +135,6 @@ PRODUCT_PACKAGES += \
     libbridge \
     libomap_mm_library_jni \
     librs_jni \
-    libtiOsLib \
     make_ext4fs
 
 # OMX components
@@ -210,6 +188,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	cexec.out
 
+# TI_WLAN stuff
+PRODUCT_PACKAGES += \
+	libtiOsLib \
+	tiwlan.ini \
+	wlan_cu \
+	wlan_loader \
+	wpa_supplicant.conf
+
 PRODUCT_CHARACTERISTICS := tablet
 
 # Screen size is "large", density is "mdpi"
@@ -220,7 +206,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
+    wifi.interface=tiwlan0 \
     dalvik.vm.heapsize=128m \
     ro.opengles.version=131072
 

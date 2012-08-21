@@ -75,43 +75,38 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_USES_UBOOT := true
 # Inline kernel building config
 # This BoardConfig uses the On-The_Fly Kernel building. You will also need to grab keyodi's kernel source from:
-# https://github.com/keyodi/ti-omap-encore-kernel3.git
+# https://github.com/keyodi/nook_kernel.git
 #
 # You can just use 
-# git clone https://github.com/keyodi/ti-omap-encore-kernel3.git
+# git clone https://github.com/keyodi/nook_kernel.git
 # and copy the contents into kernel/bn/encore (these will need to be created in your android source dir)
-TARGET_KERNEL_CONFIG := encore_defconfig
+TARGET_KERNEL_CONFIG := omap3621_fattire-ics_defconfig
 TARGET_KERNEL_SOURCE := kernel/bn/encore
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 # Fallback prebuilt kernel
 #TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 # Connectivity - Wi-Fi
-USES_TI_MAC80211 := true
-ifdef USES_TI_MAC80211
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wl12xx
-BOARD_WLAN_DEVICE                := wl12xx_mac80211
-BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wl12xx_sdio.ko"
-WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
-WIFI_FIRMWARE_LOADER             := ""
-COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
+USES_TI_WL1271 := true
+ifdef USES_TI_WL1271
+BOARD_WPA_SUPPLICANT_DRIVER      := CUSTOM
+WPA_SUPPLICANT_VERSION           := VER_0_6_X
+BOARD_WLAN_DEVICE                := wl1271
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/tiwlan_drv.ko"
+WIFI_DRIVER_MODULE_NAME          := "tiwlan_drv"
+WIFI_DRIVER_MODULE_ARG           := ""
+WIFI_FIRMWARE_LOADER             := "wlan_loader"
 endif
 
-TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
+TARGET_MODULES_SOURCE := "hardware/ti/wlan/wl1271/platforms/os/linux"
 
 WIFI_MODULES:
-	make -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE)
+	make -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE) HOST_PLATFORM=zoom2
 	mv $(KERNEL_OUT)/lib/crc7.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+	mv $(TARGET_MODULES_SOURCE)/tiwlan_drv.ko $(KERNEL_MODULES_OUT)
 
 TARGET_KERNEL_MODULES := WIFI_MODULES
+
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
