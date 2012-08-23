@@ -207,6 +207,8 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=tiwlan0 \
+    alsa.mixer.playback.master=default \
+    alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=128m \
     ro.opengles.version=131072
 
