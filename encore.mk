@@ -157,7 +157,7 @@ PRODUCT_COPY_FILES += \
 
 # Product specfic packages
 PRODUCT_PACKAGES += \
-    overlay.omap3 \
+    hwcomposer.omap3 \
     lights.encore \
     sensors.encore \
     power.encore \
