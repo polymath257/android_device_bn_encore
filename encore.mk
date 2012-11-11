@@ -81,15 +81,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
-# Audio Files - Need to fix Source - THANKS STEVEN676 (SLUO in irc)
 PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/prebuilt/alsa/alsa.omap3.so:system/lib/hw/alsa.omap3.so \
-   $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:system/lib/libaudio.so \
-   $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:obj/lib/libaudio.so \
-   $(LOCAL_PATH)/prebuilt/alsa/alsa.omap3.so:obj/lib/alsa.omap3.so
-
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/etc/audio_policy.conf:system/etc/audio_policy.conf
+   $(LOCAL_PATH)/etc/audio_policy.conf:system/etc/audio_policy.conf \
+   $(LOCAL_PATH)/etc/mixer_paths.xml:system/etc/mixer_paths.xml
 
 # Art
 PRODUCT_COPY_FILES += \
