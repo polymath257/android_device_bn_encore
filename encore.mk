@@ -81,6 +81,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
+# Watchdog timer
+PRODUCT_PACKAGES += watchdogd
+
 # Audio Files - Need to fix Source - THANKS STEVEN676 (SLUO in irc)
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/prebuilt/alsa/libasound.so:obj/lib/libasound.so \

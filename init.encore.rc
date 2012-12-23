@@ -17,6 +17,8 @@ on early-init
     export EXTERNAL_STORAGE /storage/sdcard1
     export SECONDARY_STORAGE /storage/sdcard0
 
+    start watchdogd
+
 on init
 
     # setup global environment
@@ -216,6 +218,11 @@ service logbatterydata /system/bin/log_battery_data.sh
     class core
     user root
     group root
+
+# Pet the watchdog timer every 10 seconds; have it reset the system if not
+# petted at least once every 30 seconds (i.e. if we miss 3 consecutive "pets")
+service watchdogd /sbin/watchdogd 10 20
+    class core
 
 # OMAP specific services start here
 
