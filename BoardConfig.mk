@@ -153,7 +153,7 @@ BOARD_HAS_NO_MISC_PARTITION := true
 # BOARD_USES_AUDIO_LEGACY := true
 # TARGET_PROVIDES_LIBAUDIO := true
 # BOARD_USES_GENERIC_AUDIO := false
-# BOARD_USES_ALSA_AUDIO := true
+BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
 
 # If you'd like to build the audio components from source instead of using
