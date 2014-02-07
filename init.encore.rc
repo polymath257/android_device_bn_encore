@@ -38,6 +38,11 @@ on init
     mkdir /rom 0755 root root
 
 on fs
+    # set up links to block devices based on boot location
+    mkdir /dev/block/by-name 0755 root root
+    start fsfinder
+    wait /dev/block/by-name/system
+
     # mount partitions
     mount_all /fstab.encore
 
@@ -198,6 +203,11 @@ on boot
 on property:dev.bootcomplete=1
     start bootcnt
     class_start default
+
+service fsfinder /sbin/fsfinder
+    class core
+    disabled
+    oneshot
 
 #service mountd /system/bin/mountd
 #   socket mountd stream 0660 root mount
